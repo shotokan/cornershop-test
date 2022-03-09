@@ -47,7 +47,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_extensions",
     "backend_test.utils",
+    "crispy_forms",
+    "account",
+    "staff",
+    "menu",
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     "backend_test.middleware.HealthCheckAwareSessionMiddleware",
@@ -66,7 +72,7 @@ ROOT_URLCONF = "backend_test.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -132,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Santiago"
 
 USE_I18N = True
 
@@ -228,10 +234,17 @@ LOGGING = {
             "level": os.getenv("DB_LOGGING_LEVEL", "INFO"),
         },
         "django.server": {"handlers": ["django.server"], "propagate": False},
-        "backend_test": {
-            "handlers": ["fluent", "console"],
-            "level": os.getenv("APP_LOGGING_LEVEL", "INFO"),
-            "propagate": True,
+        "django.db.backends": {
+            "level": "DEBUG",
+            "handlers": ["console"],
         },
     },
 }
+
+# SLACK SETTINGS
+SLACK_TOKEN = "xoxb-3200683471831-3215332932579-D1T87jIAssdgrOr29Ih4opcS"
+
+# PROJECT DOMAIN
+PROJECT_DOMAIN = "http://localhost:8000"
+
+APPEND_SLASH = True

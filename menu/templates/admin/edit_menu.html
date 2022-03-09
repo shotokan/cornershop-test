@@ -1,0 +1,17 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>Create Menu</h1>
+<div>{{date_error}}</div>
+<br />
+{% for error in field.errors %}
+{{ error }}
+{% endfor %}
+<form action="{% url 'menu:create_new' %}" id="menu_create" method="post">
+  {% csrf_token %} {{ form | crispy }}
+
+
+  <input type="submit" />
+</form>
+
+{% endblock %}

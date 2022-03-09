@@ -1,0 +1,14 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>Signup</h1>
+{% for error in field.errors %}
+    {{ error }}
+{% endfor %}
+<form class="site-form" action="{% url 'account:signup' %}" method="post">
+    {% csrf_token %}
+    {{ form | crispy }}
+  <input type="submit" value="Signup">
+</form>
+{% endblock %}

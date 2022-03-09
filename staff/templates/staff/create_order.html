@@ -1,0 +1,63 @@
+{% extends 'base_layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <h1><b>Menu #{{ menu.id }} - {{menu.date}}</b>
+      </h1>
+    </div>
+    {% if menu.has_items %}
+    <div class="card-body">
+      <div class="container-fluid">
+        <div class="row">
+          {% if form.errors %}
+          {% for field in form %}
+          {% for error in field.errors %}
+          <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+          </div>
+          {% endfor %}
+          {% endfor %}
+          
+          {% endif %}
+          {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+              <strong>{{ error|escape }}</strong>
+            </div>
+          {% endfor %}
+
+        </div>
+        <div class="row">
+          {% for item in menu.has_items.all %}
+          <div class="col-6">
+            <div class="card mb-3">
+              <form action="{% url 'staff:select' menu_id=menu.uuid %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="menu" value="{{menu.id}}">
+                <input type="hidden" name="item_selected" value="{{item.id}}">
+                <div class="card-header">
+                  <h3>Item: {{ forloop.counter }}
+                    <button type="submit" class="fas fa-plus-circle border-1 float-right bg-transparent text-success">ORDER</button>
+                  </h3>
+                </div>
+                <div class="card-body">
+                  <p class="card-text"> {{item.description}} </p>
+                  <div class="row">
+                      <input name="customization" class="form-control mx-3" placeholder="Any Details" type="text">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+
+{% endblock %}

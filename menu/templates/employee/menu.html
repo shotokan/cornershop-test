@@ -1,0 +1,24 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<h1>Menu</h1>
+<div>Hello, {{user}}</div>
+<br>
+<p>{{date}}</p>
+<p>Select your option from the menu.</p>
+
+<br>
+
+<form action="{% url 'orders:ordered' menu_id=menu_id%}" id="menu_create" method="post">
+    {% csrf_token %}
+    {{menu_options}}
+    <br>
+    <label for="customizations">Customizations:</label>
+    <br>
+    <textarea id="customizations" name="customizations" rows="4" cols="50">
+
+    </textarea>
+    <br><br>
+    <input type="submit">
+</form>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>Orders Requested</h1>
+<br />
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-12">
+      <h3>Current Order</h3>
+      <div class="list-group">
+        {% if not today_message %}
+        <a href="#" class="list-group-item list-group-item-action active">
+          {{ today_order.menu.date | date }}
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">{{ today_order.menu.uuid }}</a>
+        <a href="#" class="list-group-item list-group-item-action">{{ today_order.item_selected.description }}</a>
+        <a href="#" class="list-group-item list-group-item-action">{{ today_order.customization }}</a>
+        {% else %}
+        <a href="#" class="list-group-item list-group-item-action">{{ today_message }}</a>
+        {% endif %}
+      </div>
+      <br />
+    </div>
+    {% for order in orders %}
+    <div class="col-4">
+      <h3>Past Orders</h3>
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active">
+          {{ order.menu.date | date }}
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">{{ order.menu.uuid }}</a>
+        <a href="#" class="list-group-item list-group-item-action">{{ order.item_selected.description }}</a>
+      </div>
+      <br />
+    </div>
+    {% endfor %}
+
+  </div>
+
+</div>
+
+
+
+{% endblock %}

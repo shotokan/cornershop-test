@@ -1,0 +1,36 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>Orders Requested {{current_date | date}}</h1>
+<br />
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    {% if not orders %}
+    <div class="col-4">
+      <div class="list-group">
+       Not orders requested yet
+      </div>
+      <br />
+    </div>
+    {% endif %}
+    {% for order in orders %}
+    <div class="col-4">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active">
+          {{ order.ordered_by.username }}
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">{{ order.item_selected.description }}</a>
+        <a href="#" class="list-group-item list-group-item-action">{{ order.customization }}</a>
+      </div>
+      <br />
+    </div>
+    {% endfor %}
+
+  </div>
+
+</div>
+
+
+
+{% endblock %}

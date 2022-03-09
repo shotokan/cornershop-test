@@ -1,0 +1,30 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>Menu List</h1>
+<br />
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    {% for menu in menus %}
+    <div class="col-4">
+      <div class="list-group">
+        <a href="{% url 'menu:update_menu' pk=menu.pk %}" class="list-group-item list-group-item-action active">
+          {{ menu.date | date }}
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">{{ menu.uuid }}</a>
+        {% for item in menu.has_items.all %}
+          <a href="#" class="list-group-item list-group-item-action">{{ item.description }}</a>
+        {% endfor %}
+      </div>
+      <br />
+    </div>
+    {% endfor %}
+
+  </div>
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cornershop Test</title>
+</head>
+    <body>
+    <div><a href="/account/signup/">Signup</a></div>
+        <div class="wrapper">
+            <h1>Log In</h1>
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+            <form class="site-form" action="{% url 'account:login' %}" method="post">
+                {% csrf_token %}
+                {{ form | crispy }}
+                {% if next %}
+                  <input type="hidden" name="next" value="{{ next }}" />
+                {% endif %}
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </body>
+</html>
+
